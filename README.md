@@ -12,6 +12,8 @@ Fisher is a tool for identifying popular products across multiple e-commerce mar
   - Price trends
   - Search ranking
   - Listing performance metrics
+- **Web Interface**: Modern, user-friendly web GUI for easy product searching and analysis
+- **CLI Interface**: Powerful command-line interface for automation and scripting
 
 ## Installation
 
@@ -34,23 +36,51 @@ Required API credentials:
 
 ## Usage
 
-### Basic Search
+Fisher offers two interfaces: a modern web GUI and a powerful CLI.
+
+### Web Interface (Recommended for New Users)
+
+Start the web application:
+
+```bash
+python run_webapp.py
+```
+
+Then open your browser to: `http://127.0.0.1:5000`
+
+The web interface provides:
+- Interactive search form with all filters
+- Real-time product analysis
+- Visual insights and metrics
+- Easy export to JSON
+- API status dashboard
+
+**Optional arguments:**
+```bash
+python run_webapp.py --host 0.0.0.0 --port 8080 --debug
+```
+
+### Command Line Interface (CLI)
+
+#### Basic Search
 
 ```bash
 python -m fisher search "vintage watches" --marketplaces ebay,etsy,amazon
 ```
 
-### Analyze Category
+#### Check API Status
 
 ```bash
-python -m fisher analyze --category "Electronics" --marketplace ebay
+python -m fisher status
 ```
 
-### Generate Report
+#### Get Product Details
 
 ```bash
-python -m fisher report --keywords "handmade jewelry" --output report.json
+python -m fisher details PRODUCT_ID --marketplace ebay
 ```
+
+For more CLI options, see `python -m fisher --help`
 
 ## Project Structure
 
@@ -59,7 +89,10 @@ fisher/
 ├── api/          # Marketplace API clients
 ├── data/         # Data collection and models
 ├── analysis/     # Analysis engine
-└── utils/        # Helper utilities
+├── utils/        # Helper utilities
+├── webapp.py     # Flask web application
+├── templates/    # HTML templates
+└── static/       # CSS and JavaScript files
 ```
 
 ## API Rate Limits
