@@ -14,6 +14,9 @@ ebaysdk>=2.2.0
 click>=8.1.0
 rich>=13.7.0
 
+# Web Interface
+flask>=3.0.0
+
 # Utilities
 python-dateutil>=2.8.2
 aiohttp>=3.9.0
