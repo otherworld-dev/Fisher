@@ -7,17 +7,19 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <header>
+    <header>
+        <div class="container">
             <div class="header-content">
                 <h1>🎣 Fisher</h1>
                 <p class="subtitle">Marketplace Product Analysis Tool</p>
+                <div class="status-badge" id="statusBadge">
+                    <span class="status-text">Checking APIs...</span>
+                </div>
             </div>
-            <div class="status-badge" id="statusBadge">
-                <span class="status-text">Checking APIs...</span>
-            </div>
-        </header>
+        </div>
+    </header>
 
+    <div class="container">
         <main>
             <section class="search-section">
                 <div class="search-box">
@@ -49,13 +51,13 @@
 
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="minPrice">Min Price ($)</label>
+                                <label for="minPrice">Min Price (£)</label>
                                 <input type="number" id="minPrice" name="min_price"
                                        min="0" step="0.01" placeholder="0.00">
                             </div>
 
                             <div class="form-group">
-                                <label for="maxPrice">Max Price ($)</label>
+                                <label for="maxPrice">Max Price (£)</label>
                                 <input type="number" id="maxPrice" name="max_price"
                                        min="0" step="0.01" placeholder="999.99">
                             </div>

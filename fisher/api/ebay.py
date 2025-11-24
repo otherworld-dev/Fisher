@@ -46,6 +46,7 @@ class EbayClient(BaseAPIClient):
             "SECURITY-APPNAME": self.app_id,
             "RESPONSE-DATA-FORMAT": "JSON",
             "REST-PAYLOAD": "",
+            "GLOBAL-ID": "EBAY-GB",  # UK site for GBP prices
             "keywords": query.keywords,
             "paginationInput.entriesPerPage": min(query.max_results, 100),
             "sortOrder": self._get_sort_order(query.sort_by),
@@ -113,7 +114,7 @@ class EbayClient(BaseAPIClient):
             "callname": "GetSingleItem",
             "responseencoding": "JSON",
             "appid": self.app_id,
-            "siteid": "0",
+            "siteid": "3",  # UK site for GBP prices (0=US, 3=UK)
             "version": "967",
             "ItemID": product_id,
             "IncludeSelector": "Description,Details,ItemSpecifics",

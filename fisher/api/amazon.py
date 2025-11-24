@@ -35,13 +35,15 @@ class AmazonClient(BaseAPIClient):
         if not all([self.access_key, self.secret_key, self.partner_tag]):
             raise ValueError("Amazon API credentials not fully configured")
 
-        # Set region-specific endpoint
+        # Set region-specific endpoint (defaulting to UK for GBP)
         region_hosts = {
             "us-east-1": "webservices.amazon.com",
             "eu-west-1": "webservices.amazon.co.uk",
             "us-west-2": "webservices.amazon.com",
         }
-        self.host = region_hosts.get(self.region, "webservices.amazon.com")
+        # Use UK endpoint for GBP prices
+        self.host = "webservices.amazon.co.uk"
+        self.marketplace = "www.amazon.co.uk"
         self.endpoint = f"https://{self.host}/paapi5/searchitems"
 
     def search_products(self, query: SearchQuery) -> List[Product]:
@@ -70,7 +72,7 @@ class AmazonClient(BaseAPIClient):
             ],
             "PartnerTag": self.partner_tag,
             "PartnerType": "Associates",
-            "Marketplace": "www.amazon.com",
+            "Marketplace": self.marketplace,  # UK marketplace for GBP
             "ItemCount": min(query.max_results, 10),  # Max 10 per request
         }
 
@@ -141,7 +143,7 @@ class AmazonClient(BaseAPIClient):
             ],
             "PartnerTag": self.partner_tag,
             "PartnerType": "Associates",
-            "Marketplace": "www.amazon.com",
+            "Marketplace": self.marketplace,  # UK marketplace for GBP
         }
 
         headers = {
@@ -204,7 +206,7 @@ class AmazonClient(BaseAPIClient):
             # Extract price
             offers = item.get("Offers", {}).get("Listings", [])
             price = None
-            currency = "USD"
+            currency = "GBP"
             condition = "New"
 
             if offers:
@@ -212,7 +214,7 @@ class AmazonClient(BaseAPIClient):
                 price_info = offer.get("Price", {})
                 if price_info:
                     price = price_info.get("Amount")
-                    currency = price_info.get("Currency", "USD")
+                    currency = price_info.get("Currency", "GBP")
 
                 cond_info = offer.get("Condition", {})
                 if cond_info:
@@ -231,7 +233,7 @@ class AmazonClient(BaseAPIClient):
             image_url = item.get("Images", {}).get("Primary", {}).get("Large", {}).get("URL")
 
             # Build product URL
-            product_url = item.get("DetailPageURL", f"https://www.amazon.com/dp/{asin}")
+            product_url = item.get("DetailPageURL", f"https://www.amazon.co.uk/dp/{asin}")
 
             # Extract reviews
             reviews_info = item.get("CustomerReviews", {})

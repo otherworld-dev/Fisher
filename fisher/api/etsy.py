@@ -45,6 +45,7 @@ class EtsyClient(BaseAPIClient):
             "keywords": query.keywords,
             "limit": min(query.max_results, 100),
             "sort_on": self._get_sort_order(query.sort_by),
+            "currency": "GBP",  # Request prices in GBP
         }
 
         # Add price filters
@@ -142,13 +143,13 @@ class EtsyClient(BaseAPIClient):
 
             # Extract price
             price = None
-            currency = "USD"
+            currency = "GBP"
 
             if "price" in item:
                 price_info = item["price"]
                 if isinstance(price_info, dict):
                     price = float(price_info.get("amount", 0)) / 100  # Etsy returns cents
-                    currency = price_info.get("currency_code", "USD")
+                    currency = price_info.get("currency_code", "GBP")
                 else:
                     price = float(price_info)
 

@@ -40,7 +40,7 @@ class Product(BaseModel):
 
     # Pricing
     price: Optional[float] = Field(None, ge=0, description="Current price")
-    currency: Optional[str] = Field("USD", description="Currency code")
+    currency: Optional[str] = Field("GBP", description="Currency code")
     original_price: Optional[float] = Field(None, ge=0, description="Original/list price")
 
     # Product details

@@ -322,10 +322,10 @@ def _display_insights(insights: dict):
         price = insights["price_analysis"]
         console.print(f"[bold]Price Range:[/bold]")
         if price["min_price"] is not None:
-            console.print(f"  Min: ${price['min_price']:.2f}")
-            console.print(f"  Max: ${price['max_price']:.2f}")
-            console.print(f"  Avg: ${price['avg_price']:.2f}")
-            console.print(f"  Median: ${price['median_price']:.2f}\n")
+            console.print(f"  Min: £{price['min_price']:.2f}")
+            console.print(f"  Max: £{price['max_price']:.2f}")
+            console.print(f"  Avg: £{price['avg_price']:.2f}")
+            console.print(f"  Median: £{price['median_price']:.2f}\n")
 
     # Top categories
     if "top_categories" in insights and insights["top_categories"]:

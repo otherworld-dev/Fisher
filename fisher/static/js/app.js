@@ -163,15 +163,15 @@ function displayInsights(insights) {
             html += `
                 <div class="insight-card">
                     <div class="insight-label">Avg Price</div>
-                    <div class="insight-value">$${price.avg_price.toFixed(2)}</div>
+                    <div class="insight-value">£${price.avg_price.toFixed(2)}</div>
                 </div>
                 <div class="insight-card">
                     <div class="insight-label">Price Range</div>
-                    <div class="insight-value">$${price.min_price.toFixed(2)} - $${price.max_price.toFixed(2)}</div>
+                    <div class="insight-value">£${price.min_price.toFixed(2)} - £${price.max_price.toFixed(2)}</div>
                 </div>
                 <div class="insight-card">
                     <div class="insight-label">Median Price</div>
-                    <div class="insight-value">$${price.median_price.toFixed(2)}</div>
+                    <div class="insight-value">£${price.median_price.toFixed(2)}</div>
                 </div>
             `;
         }
@@ -213,7 +213,7 @@ function createProductCard(product, rank) {
     const card = document.createElement('div');
     card.className = 'product-card';
 
-    const priceStr = product.price !== null ? `${product.currency} ${product.price.toFixed(2)}` : 'N/A';
+    const priceStr = product.price !== null ? `${getCurrencySymbol(product.currency)}${product.price.toFixed(2)}` : 'N/A';
     const popularityScore = product.metrics?.popularity_score !== null ? product.metrics.popularity_score.toFixed(1) : 'N/A';
 
     let metricsHtml = '<div class="product-metrics">';
@@ -364,6 +364,16 @@ function showError(message) {
 function formatNumber(num) {
     if (num === null || num === undefined) return 'N/A';
     return num.toLocaleString();
+}
+
+function getCurrencySymbol(currencyCode) {
+    const symbols = {
+        'GBP': '£',
+        'USD': '$',
+        'EUR': '€',
+        'JPY': '¥',
+    };
+    return symbols[currencyCode] || currencyCode;
 }
 
 function escapeHtml(text) {
